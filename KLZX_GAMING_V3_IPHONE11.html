@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#090909">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="KLZX V3">
+<title>KLZX GAMING V3</title>
+<style>
+:root{color-scheme:dark;--r:#ff2338;--bg:#080808;--card:#141416;--muted:#aaaab2;--border:#302126}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top,#300912,#0b090a 40%,#050505 80%);color:#f7f7f8;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;padding:calc(16px + env(safe-area-inset-top)) 13px calc(28px + env(safe-area-inset-bottom))}
+main{max-width:680px;margin:auto}.head{text-align:center;padding:15px 0 24px}.brand{font-size:clamp(29px,8vw,44px);font-weight:950;letter-spacing:2px}.brand em{color:var(--r);font-style:normal;text-shadow:0 0 18px #ff233866}.tag{font-size:10px;letter-spacing:2px;color:#a7a7ad;margin-top:7px}
+.card{background:linear-gradient(145deg,#191719ed,#101011ed);border:1px solid var(--border);border-radius:17px;padding:17px;margin:12px 0;box-shadow:0 12px 30px #0007}
+h2{font-size:14px;letter-spacing:1px;margin:0 0 13px}p{font-size:13px;color:var(--muted);line-height:1.55}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+button{border:1px solid #3a3033;background:#191719;color:#eee;border-radius:11px;padding:13px 10px;font-size:12px;font-weight:800;cursor:pointer}
+button.primary{background:linear-gradient(135deg,#ff2338,#a60018);border-color:#ff2338;color:#fff}
+button:active{transform:scale(.98)}
+button.on{border-color:var(--r);box-shadow:0 0 13px #ff233822;color:#fff}
+.row{display:flex;align-items:center;gap:10px;padding:11px 0;border-bottom:1px solid #2b292b;font-size:13px;line-height:1.4}
+.row:last-child{border:0}.row input{width:18px;height:18px;accent-color:var(--r);flex-shrink:0}
+.out{background:#0a0a0b;border:1px solid #2b282a;border-radius:11px;padding:13px;margin-top:12px}
+.out b{color:var(--r);display:block;margin-bottom:5px;font-size:13px}.out p{margin:0;color:#ddd}
+small{color:#85858d;font-size:11px;line-height:1.5;display:block}
+.timer{text-align:center;font-size:35px;font-weight:900;color:var(--r);margin:12px}
+input[type=range]{width:100%;accent-color:var(--r)}
+.value{text-align:center;font-size:13px;color:#eee;margin:8px}
+hr{border:0;border-top:1px solid #292629;margin:13px 0}
+.foot{text-align:center;font-size:10px;letter-spacing:1px;color:#777;padding:16px}
+@media(max-width:350px){.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body><main>
+<div class="head"><div class="brand">KLZX <em>GAMING</em></div><div class="tag">V3 • CONTROL CENTER • IPHONE 11</div></div>
+
+<section class="card">
+<h2>🎮 PERFIS DE CONFIGURAÇÃO</h2>
+<div class="grid">
+<button class="primary" data-profile="fps">⚡ PRIORIDADE FPS</button>
+<button data-profile="touch">🎯 TOQUE / MIRA</button>
+<button data-profile="balanced">⚖️ EQUILIBRADO</button>
+<button data-profile="cool">🌡️ MENOS AQUECIMENTO</button>
+</div>
+<div class="out" id="profile"><b>PRIORIDADE FPS</b><p>Free Fire: Gráficos Suave + FPS Alto. iPhone: Pouca Energia desligada, brilho confortável e pausa se aquecer.</p></div>
+</section>
+
+<section class="card">
+<h2>🔆 AJUSTE DE BRILHO (LEMBRETE)</h2>
+<input id="brightness" type="range" min="20" max="100" value="60">
+<div class="value">Brilho recomendado: <strong id="bv">60%</strong></div>
+<p>Este controle só serve como referência visual. Para aplicar: abra a Central de Controle do iPhone e ajuste o brilho manualmente.</p>
+<button class="primary" id="brightnessHelp" style="width:100%">COMO AJUSTAR NO IPHONE</button>
+<div class="out" id="brightInfo" hidden><b>APLICAR AGORA</b><p>Deslize do canto superior direito para baixo → arraste o controle de brilho. Não existe API de site para alterar esse ajuste no iOS.</p></div>
+</section>
+
+<section class="card">
+<h2>🛡️ CONFIGURAÇÕES DO IPHONE</h2>
+<label class="row"><input type="checkbox" id="low">Desativar Modo Pouca Energia</label>
+<label class="row"><input type="checkbox" id="focus">Ativar Foco “KLZX GAMER” / Não Perturbe</label>
+<label class="row"><input type="checkbox" id="record">Confirmar gravação de tela desligada</label>
+<label class="row"><input type="checkbox" id="apps">Fechar apps pesados desnecessários</label>
+<label class="row"><input type="checkbox" id="charge">Evitar jogar conectado ao carregador se aquecer</label>
+<label class="row"><input type="checkbox" id="case">Retirar capinha se o aparelho estiver quente</label>
+<button id="save" class="primary" style="width:100%;margin-top:12px">SALVAR MEU CHECKLIST</button>
+<div class="out" id="saveInfo"><b>PROGRESSO</b><p id="progress">0 de 6 concluídos</p></div>
+</section>
+
+<section class="card">
+<h2>📶 TESTE DE CONEXÃO</h2>
+<p>Este teste mede o tempo de resposta entre o navegador e um endpoint público. Pode falhar se a rede bloquear a solicitação. Não é um teste direto aos servidores do Free Fire.</p>
+<div class="grid"><button class="primary" id="ping">TESTAR CONEXÃO</button><button id="clearPing">LIMPAR RESULTADO</button></div>
+<div class="out" id="pingResult"><b>AGUARDANDO TESTE</b><p>Toque em “Testar conexão”.</p></div>
+</section>
+
+<section class="card">
+<h2>👆 TESTE DE TOQUE</h2>
+<p>Toque e arraste na área abaixo. Ela desenha seu movimento localmente para verificar se há interrupções visíveis. Não calibra nem altera a tela.</p>
+<div id="touchArea" style="height:160px;border:1px dashed #ff233877;border-radius:12px;background:#0b0b0c;display:flex;align-items:center;justify-content:center;color:#777;font-size:12px;touch-action:none">TOQUE E ARRASTE AQUI</div>
+<div class="out"><b>CONTAGEM DE TOQUES / MOVIMENTOS</b><p id="touchCount">0 eventos registrados</p><button id="resetTouch" style="width:100%">ZERAR TESTE</button></div>
+</section>
+
+<section class="card">
+<h2>⏱️ TIMER DE PAUSA</h2>
+<p>Faça uma pausa para ajudar a controlar o aquecimento. Mantenha a página aberta: o iOS pode suspender timers em segundo plano.</p>
+<div class="timer" id="timer">20:00</div>
+<div class="grid"><button class="primary" id="start">INICIAR 20 MIN</button><button id="resetTimer">REINICIAR</button></div>
+</section>
+
+<section class="card">
+<h2>📌 ACESSO RÁPIDO ÀS CONFIGURAÇÕES</h2>
+<p>O iOS não permite que páginas web alterem diretamente FPS, resolução, RAM, temperatura, sensibilidade do Free Fire ou configurações do sistema. Os botões abaixo mostram o caminho manual.</p>
+<div class="grid">
+<button id="gameSettings">CONFIG. FREE FIRE</button>
+<button id="iosSettings">CONFIG. IPHONE</button>
+</div>
+<div class="out" id="pathInfo" hidden><b>CAMINHO</b><p></p></div>
+</section>
+
+<div class="foot">KLZX GAMING V3 • FERRAMENTAS LOCAIS • SEM JAILBREAK</div>
+</main>
+<script>
+const profileText={
+fps:["PRIORIDADE FPS","Free Fire: Gráficos Suave + FPS Alto. iPhone: Pouca Energia desligada, brilho confortável e pausa se aquecer."],
+touch:["TOQUE / MIRA","Use FPS Alto se estável, mantenha a tela limpa e seca, remova interferências de toque e evite jogar com o aparelho quente."],
+balanced:["EQUILIBRADO","Use Gráficos Suave e FPS Alto; reduza brilho se aquecer. Se ocorrer instabilidade, teste FPS um nível abaixo."],
+cool:["MENOS AQUECIMENTO","Reduza brilho, remova a capinha se necessário, feche o jogo e deixe o aparelho esfriar naturalmente. Não use gelo ou geladeira."]
+};
+document.querySelectorAll("[data-profile]").forEach(btn=>btn.addEventListener("click",()=>{
+ document.querySelectorAll("[data-profile]").forEach(b=>b.classList.remove("on"));
+ btn.classList.add("on");let x=profileText[btn.dataset.profile];
+ document.querySelector("#profile").innerHTML=`<b>${x[0]}</b><p>${x[1]}</p>`;
+}));
+const br=document.querySelector("#brightness");
+br.addEventListener("input",()=>document.querySelector("#bv").textContent=br.value+"%");
+document.querySelector("#brightnessHelp").onclick=()=>document.querySelector("#brightInfo").hidden=false;
+const checks=[...document.querySelectorAll('#low,#focus,#record,#apps,#charge,#case')];
+function updateProgress(){let n=checks.filter(x=>x.checked).length;document.querySelector("#progress").textContent=`${n} de ${checks.length} concluídos`;localStorage.setItem("klzxV3Checks",JSON.stringify(checks.map(x=>x.checked)));}
+try{let old=JSON.parse(localStorage.getItem("klzxV3Checks")||"[]");checks.forEach((x,i)=>x.checked=!!old[i]);}catch{}
+checks.forEach(x=>x.addEventListener("change",updateProgress));updateProgress();
+document.querySelector("#save").onclick=()=>{updateProgress();let b=document.querySelector("#save");b.textContent="CHECKLIST SALVO";setTimeout(()=>b.textContent="SALVAR MEU CHECKLIST",1600);};
+document.querySelector("#ping").onclick=async()=>{
+ const box=document.querySelector("#pingResult");box.innerHTML="<b>TESTANDO…</b><p>Aguarde alguns segundos.</p>";
+ const url="https://www.cloudflare.com/cdn-cgi/trace?klzx="+Date.now();
+ const start=performance.now();
+ try{await fetch(url,{mode:"cors",cache:"no-store"});let ms=Math.round(performance.now()-start);box.innerHTML=`<b>RESPOSTA: ${ms} ms</b><p>Resultado aproximado até Cloudflare. Latência pode variar; não representa ping do servidor do jogo.</p>`;}
+ catch{box.innerHTML="<b>TESTE BLOQUEADO OU FALHOU</b><p>Safari/rede não permitiu a solicitação. Use um teste de conexão confiável e compare dentro do jogo.</p>";}
+};
+document.querySelector("#clearPing").onclick=()=>document.querySelector("#pingResult").innerHTML="<b>AGUARDANDO TESTE</b><p>Toque em “Testar conexão”.</p>";
+let events=0,down=false;
+const area=document.querySelector("#touchArea");
+function count(e){events++;document.querySelector("#touchCount").textContent=events+" eventos registrados";const r=area.getBoundingClientRect();let x=e.clientX-r.left,y=e.clientY-r.top;area.style.background=`radial-gradient(circle 45px at ${x}px ${y}px,#ff233833,#0b0b0c 75%)`;area.textContent="MOVIMENTO REGISTRADO";}
+area.addEventListener("pointerdown",e=>{down=true;area.setPointerCapture(e.pointerId);count(e);});
+area.addEventListener("pointermove",e=>{if(down)count(e);});
+area.addEventListener("pointerup",()=>{down=false;area.textContent="TOQUE E ARRASTE AQUI";});
+area.addEventListener("pointercancel",()=>{down=false;});
+document.querySelector("#resetTouch").onclick=()=>{events=0;document.querySelector("#touchCount").textContent="0 eventos registrados";area.style.background="#0b0b0c";area.textContent="TOQUE E ARRASTE AQUI";};
+let remaining=1200,timer=null;
+function showTimer(){document.querySelector("#timer").textContent=String(Math.floor(remaining/60)).padStart(2,"0")+":"+String(remaining%60).padStart(2,"0");}
+document.querySelector("#start").onclick=()=>{if(timer)return;document.querySelector("#start").textContent="CONTANDO…";timer=setInterval(()=>{if(remaining>0){remaining--;showTimer();}else{clearInterval(timer);timer=null;document.querySelector("#start").textContent="INICIAR 20 MIN";alert("Pausa concluída. Deixe o iPhone descansar.");}},1000);};
+document.querySelector("#resetTimer").onclick=()=>{clearInterval(timer);timer=null;remaining=1200;showTimer();document.querySelector("#start").textContent="INICIAR 20 MIN";};
+document.querySelector("#gameSettings").onclick=()=>{let box=document.querySelector("#pathInfo");box.hidden=false;box.querySelector("p").textContent="Abra Free Fire → engrenagem de Configurações → Gráficos. Comece em Suave e FPS Alto. Teste em partida; se aquecer ou cair FPS, reduza a opção de FPS um nível.";};
+document.querySelector("#iosSettings").onclick=()=>{let box=document.querySelector("#pathInfo");box.hidden=false;box.querySelector("p").textContent="Ajustes → Bateria → desative Modo Pouca Energia. Para Foco: Ajustes → Foco → + → Jogos (ou Personalizado). Ative antes de abrir o Free Fire.";};
+</script>
+</body>
+</html>
